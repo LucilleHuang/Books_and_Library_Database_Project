@@ -1,0 +1,16 @@
+Description:
+	A relational schema based on the ER design
+
+Requirments:
+	write the necessary SQL code to:
+		1) create the required tables, views, etc. for the relational schema
+		2) create the required primary keys, foreign keys, and integrity constraints
+		3) create indexes as necessary for the query operations you will do both in the client and in the data-mining exercise
+		4) load the data from your dataset CSVs into the tables
+
+	Handle error and errors and inconsistencies relative to your design in the data:
+		1) fixing obvious data errors
+		2) removing any duplicate data
+		3) modifying your design in certain cases
+		Note: document what you did to handle the issues
+

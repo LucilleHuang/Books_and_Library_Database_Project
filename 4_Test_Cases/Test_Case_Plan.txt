@@ -1,0 +1,9 @@
+Description:
+	test case plan on how to test the various code aspects of this project
+
+Test Plans for:
+	1 Client Application
+
+	2 Relational Schema
+
+	3 Data Mining

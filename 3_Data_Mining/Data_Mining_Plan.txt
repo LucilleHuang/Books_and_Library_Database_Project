@@ -1,0 +1,10 @@
+Description: 
+	A data-mining investigation of the dataset
+Requirements:
+	1. Select a domain-appropriate question that you want data mining to answer
+	2. Select a technique or technique that will be appropriate to the question you are investigating
+	3. Implement said technique efficiently to build a data model
+	4. Determine the validity of your model
+	5. Report the results of your investigation
+
+

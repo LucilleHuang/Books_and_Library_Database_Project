@@ -1,0 +1,10 @@
+Description: 
+	A command-line client application appropriate to the domain
+Requirements:
+	1. Querying the data in a way that a customer in the domain would do
+	2. Modifying the data in a way that a customer in the domain would do
+Need to Decide:
+	1. What you think an ideal client should be able to do
+	2. What you plan to actually implement for your client given the time constraints
+	3. (At the end of the project, when you write your report) What you actually implemented from your plan, and what you left
+	4. An explanation justifying each of the above choices
