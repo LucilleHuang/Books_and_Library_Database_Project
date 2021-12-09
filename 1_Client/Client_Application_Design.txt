@@ -8,3 +8,7 @@ Need to Decide:
 	2. What you plan to actually implement for your client given the time constraints
 	3. (At the end of the project, when you write your report) What you actually implemented from your plan, and what you left
 	4. An explanation justifying each of the above choices
+
+1. Possible Features
+	1) Search for a book by name, by author, by genre
+	2) Check a book's status (borrowed, available in library, overdued, etc.)
