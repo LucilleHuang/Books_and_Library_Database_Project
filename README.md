@@ -1,6 +1,6 @@
 # Books_and_Library_Database_Project
 This project contains:
-A command-line client application\n
+A command-line client application/n
 An entity-relationship design to model the data\n
 A relational schema based on the ER design\n
 A data-mining investigation of the dataset\n
