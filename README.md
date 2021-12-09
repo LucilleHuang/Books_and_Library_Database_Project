@@ -18,7 +18,7 @@ The requirements for the project are as follows: <br />
 		Decide:
 			1. What you think an ideal client should be able to do
 			2. What you plan to actually implement for your client given the time constraints
-			3. (At the end of the project, when you write your report) What you actually implemented from your plan, and what you left
+			3. Document what you actually implemented from your plan, and what you left (At the end of the project, when you write your report)
 			4. An explanation justifying each of the above choices
 	
 	2. An entity-relationship design to model the data
