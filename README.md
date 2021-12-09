@@ -49,10 +49,12 @@ The requirements for the project are as follows: <br />
 
 Deliverables: <br />
 
-	1. Final Written Report: this should describe the client application, the ER design, the relational schema, and your data-mining investigation, detailing the specific issues required above. In addition, you should include a test case plan that describes how you test the various code aspects of your project.
+	1. Final Written Report: 
+		this should describe the client application, the ER design, the relational schema, and your data-mining investigation, detailing the specific issues required above. In addition, you should include a test case plan that describes how you test the various code aspects of your project.
 	2. Code: you are not expected to submit your code but rather store it in a GitHub repository, or equivalent, to which we can have access. The code in the repository should include the following:
 		1) All client code
 		2) The SQL code necessary to implement the relational schema and load the data from the CSV files
 		3) The code, SQL and otherwise, needed to implement your data-mining investigation
 		4) Test cases for the above
-	3. Video Demo: a 20-minute walk-through/presentation of your project. It should describe all of the aspects of your design, implementation, and results.
+	3. Video Demo: 
+		a 20-minute walk-through/presentation of your project. It should describe all of the aspects of your design, implementation, and results.
