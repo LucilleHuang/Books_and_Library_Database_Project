@@ -1,4 +1,6 @@
 # Books_and_Library_Database_Project
+Project in progress, will be completed by Dec. 23, 2021
+
 This project contains: <br />
 1. A command-line client application <br />
 2. An entity-relationship design to model the data <br />
