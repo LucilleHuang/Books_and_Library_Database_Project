@@ -1,5 +1,5 @@
 # Books_and_Library_Database_Project
-This project contains:
+This project contains: <br />
 A command-line client application <br />
 An entity-relationship design to model the data <br />
 A relational schema based on the ER design <br />
