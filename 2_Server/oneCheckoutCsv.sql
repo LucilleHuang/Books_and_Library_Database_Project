@@ -8,7 +8,6 @@ create table LibraryCheckout(
     CallNumber char(59),
     CheckoutDateTime    dateTime    not null,
     primary key (ItemBarcode, CheckoutDateTime),
-    FOREIGN KEY (Bibnumber) references LibraryCollection(BibNum),
     FOREIGN KEY (ItemType) REFERENCES LibraryDataDictonary(Code),
     FOREIGN KEY (Collection) REFERENCES LibraryDataDictonary(Code)
 );
@@ -18,7 +17,7 @@ into table LibraryCheckout
     fields terminated by ','
     enclosed by '"'
     lines terminated by '\n'
-    ignore 3794000 lines
+    ignore 1 lines
     (Bibnumber,
     ItemBarcode,
     ItemType,

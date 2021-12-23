@@ -29,7 +29,7 @@ into table GoodReadBook
     fields terminated by ','
     enclosed by '"'
     lines terminated by '\n'
-    ignore 0 lines
+    ignore 1 lines
     (Id,
     Name,
     Authors,
