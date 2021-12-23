@@ -23,3 +23,5 @@ into table LibraryDataDictonary
         CategoryGroup = IF(@CategoryGroup='', null, @CategoryGroup),
         CategorySubgroup = IF(@CategorySubgroup='', null, @CategorySubgroup);
 show warnings limit 10;
+
+CREATE INDEX Code ON LibraryDataDictonary (Code);

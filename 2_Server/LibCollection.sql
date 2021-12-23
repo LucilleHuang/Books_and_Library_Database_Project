@@ -1,3 +1,4 @@
+drop table if exists LibraryCollectionISBN;
 drop table if exists LibraryCollection;
 
 create table LibraryCollection(
@@ -15,7 +16,10 @@ create table LibraryCollection(
     ItemLocation	char(7) not null,
     ReportDate	Date	not null,
     ItemCount	decimal(3) not null,
-    primary key (id)
+    primary key (id),
+    FOREIGN KEY (ItemType) REFERENCES LibraryDataDictonary(Code),
+    FOREIGN KEY (ItemCollection) REFERENCES LibraryDataDictonary(Code),
+    FOREIGN KEY (ItemLocation) REFERENCES LibraryDataDictonary(Code)
 );
 
 load data infile '/var/lib/mysql-files/20-Books/Library_Collection_Inventory.csv' ignore
@@ -23,7 +27,7 @@ into table LibraryCollection
     fields terminated by ','
     enclosed by '"'
     lines terminated by '\n'
-    ignore 2686000 lines
+    ignore 2687000 lines
     (BibNum,
     @Title,
     @Author,
@@ -49,12 +53,11 @@ into table LibraryCollection
         ReportDate = STR_TO_DATE(@ReportDate, "%m/%d/%Y");
 show warnings limit 10;
 
-
-drop table if exists LibraryCollectionISBN;
 create table LibraryCollectionISBN(
     id int not null,
     ISBN char(13),
-    primary key (id, ISBN)
+    primary key (id, ISBN),
+    FOREIGN KEY (id) REFERENCES LibraryCollection(id)
 );
 
 insert into LibraryCollectionISBN
