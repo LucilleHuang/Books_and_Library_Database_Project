@@ -109,7 +109,6 @@ elif (args.command == "checkout"):
         cursor.execute(query, checkout)
 
         cnx.commit()
-        print("Successfully updated")
     except:
         print("An error occured")
 
@@ -132,7 +131,6 @@ elif (args.command == "update"):
         cursor.execute(query)
 
         cnx.commit()
-        print("Successfully updated")
     except:
         print("An error occured")
 
