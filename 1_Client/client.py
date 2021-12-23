@@ -10,6 +10,7 @@ parser.add_argument("-t", "--title")
 parser.add_argument("-a", "--author")
 parser.add_argument("-s", "--subject")
 #parser.add_argument("-r", "--rating")
+parser.add_argument("-m", "--limit")
 
 #checkout
 parser.add_argument("-n", "--number")
@@ -22,6 +23,9 @@ parser.add_argument("-u", "--callnumber")
 parser.add_argument("-l", "--location")
 parser.add_argument("-o", "--copies")
 parser.add_argument("-i", "--id")
+
+#get codes
+parser.add_argument("-d", "--codetype")
 
 args = parser.parse_args()
 
@@ -71,7 +75,10 @@ if (args.command == "search"):
         query = query + " Subjects LIKE '%" + args.subject + "%'"
         andFlag = True
     
-    query = query + " LIMIT " + str(LIMIT)
+    if (args.limit):
+        query = query + " LIMIT " + args.limit
+    else:
+        query = query + " LIMIT " + str(LIMIT)
 
     try:
         cursor.execute(query)
@@ -100,10 +107,10 @@ elif (args.command == "checkout"):
     checkout = (args.number, args.barcode, args.type, args.collection, args.callnumber, datetime.now())
     try:
         cursor.execute(query, checkout)
+
+        cnx.commit()
     except:
         print("An error occured")
-
-    cnx.commit()
 
 elif (args.command == "update"):
     if (not args.id):
@@ -124,6 +131,23 @@ elif (args.command == "update"):
         cursor.execute(query)
 
         cnx.commit()
+    except:
+        print("An error occured")
+
+elif (args.command == "codes"):
+    query = "SELECT Code, Description FROM LibraryDataDictonary"
+
+    if (args.codetype):
+        query = query + " WHERE CodeType = '" + args.codetype + "'"
+
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
+
+        for x in result:
+            print("Code: " + str(x[0]))
+            print("Description: " + str(x[1]))
+            print("\n")
     except:
         print("An error occured")
 
