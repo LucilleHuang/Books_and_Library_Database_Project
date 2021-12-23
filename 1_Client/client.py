@@ -5,16 +5,23 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("command")
+# search
 parser.add_argument("-t", "--title")
 parser.add_argument("-a", "--author")
 parser.add_argument("-s", "--subject")
 #parser.add_argument("-r", "--rating")
 
+#checkout
 parser.add_argument("-n", "--number")
 parser.add_argument("-b", "--barcode")
-parser.add_argument("-i", "--type")
+parser.add_argument("-y", "--type")
 parser.add_argument("-c", "--collection")
-parser.add_argument("-l", "--callnumber")
+parser.add_argument("-u", "--callnumber")
+
+#update location or copies
+parser.add_argument("-l", "--location")
+parser.add_argument("-o", "--copies")
+parser.add_argument("-i", "--id")
 
 args = parser.parse_args()
 
@@ -28,10 +35,11 @@ cnx = mysql.connector.connect(
 #test query
 cursor = cnx.cursor()
 andFlag = False
+commaFlag = False
 
 LIMIT = 10
 
-if (args.command == "Search"):
+if (args.command == "search"):
     """  ignore rating and description for now
     query = "SELECT G.Name, G.Authors, G.Desciption, G.Rating, G.CountsOfReview"
     query += " FROM LibraryCollectionISBN AS LCI"
@@ -40,7 +48,7 @@ if (args.command == "Search"):
     query += " INNER JOIN LibraryCollection AS LC"
     query += " ON LC.id = LCI.id"
     """
-    query = "SELECT Title, Author, Subjects, ItemLocation, ItemCount FROM LibraryCollection"
+    query = "SELECT id, Title, Author, Subjects, ItemLocation, ItemCount FROM LibraryCollection"
 
     if (args.title or args.author or args.subject):
         query = query + " WHERE"
@@ -65,19 +73,23 @@ if (args.command == "Search"):
     
     query = query + " LIMIT " + str(LIMIT)
 
-    cursor.execute(query)
-    result = cursor.fetchall()
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
 
-    for x in result:
-        print("Title: " + str(x[0]))
-        print("Author: " + str(x[1]))
-        print("Subjects: " + str(x[2]))
-        print("Item Location: " + str(x[3]))
-        print("Item Count: " + str(x[4]))
-        print("\n")
+        for x in result:
+            print("ID: " + str(x[0]))
+            print("Title: " + str(x[1]))
+            print("Author: " + str(x[2]))
+            print("Subjects: " + str(x[3]))
+            print("Item Location: " + str(x[4]))
+            print("Item Count: " + str(x[5]))
+            print("\n")
+    except:
+        print("An error occured")
 
 
-elif (args.command == "Checkout"):
+elif (args.command == "checkout"):
     query = "INSERT INTO LibraryCheckout"
     query +=  " (Bibnumber, ItemBarcode, ItemType, Collection, CallNumber, CheckoutDateTime)"
     query += " VALUE (%s, %s, %s, %s, %s, %s)"
@@ -86,17 +98,34 @@ elif (args.command == "Checkout"):
         sys.exit("Must specify Bibnumber, Barcode, Type, Collection, and Number")
 
     checkout = (args.number, args.barcode, args.type, args.collection, args.callnumber, datetime.now())
-
-    cursor.execute(query, checkout)
+    try:
+        cursor.execute(query, checkout)
+    except:
+        print("An error occured")
 
     cnx.commit()
 
-elif (args.command == "UpdateStatus"):
-    print("Update Status")
-    #TODO
-elif (args.command == "AddBook"):
-    print("Add Book")
-    #TODO
+elif (args.command == "update"):
+    if (not args.id):
+        sys.exit("Must specify id of collection")
+    if (not(args.location or args.copies)):
+        sys.exit("Must specify either location or number of available copies")
+    query = "UPDATE LibraryCollection SET"
+    if (args.location):
+        query = query + " ItemLocation = '" + args.location + "'"
+        commaFlag = True
+    if (args.copies):
+        if commaFlag:
+            query = query + ","
+        query = query + " ItemCount = '" + args.copies + "'"
+    query = query + " WHERE id = '" + args.id + "'"
+
+    try:
+        cursor.execute(query)
+
+        cnx.commit()
+    except:
+        print("An error occured")
 
 cursor.close()
 cnx.close()
