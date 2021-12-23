@@ -1,8 +1,9 @@
+drop table if exists LibraryCheckout;
 drop table if exists LibraryCollectionISBN;
 drop table if exists LibraryCollection;
 
 create table LibraryCollection(
-    id int not null AUTO_INCREMENT,
+    Id int not null AUTO_INCREMENT,
     BibNum	decimal(7) not null,
     Title	text,
     Author	char(199),
@@ -16,7 +17,7 @@ create table LibraryCollection(
     ItemLocation	char(7) not null,
     ReportDate	Date	not null,
     ItemCount	decimal(3) not null,
-    primary key (id),
+    primary key (Id),
     FOREIGN KEY (ItemType) REFERENCES LibraryDataDictonary(Code),
     FOREIGN KEY (ItemCollection) REFERENCES LibraryDataDictonary(Code),
     FOREIGN KEY (ItemLocation) REFERENCES LibraryDataDictonary(Code)
@@ -27,7 +28,7 @@ into table LibraryCollection
     fields terminated by ','
     enclosed by '"'
     lines terminated by '\n'
-    ignore 2687000 lines
+    ignore 1 lines
     (BibNum,
     @Title,
     @Author,
@@ -54,22 +55,22 @@ into table LibraryCollection
 show warnings limit 10;
 
 create table LibraryCollectionISBN(
-    id int not null,
+    Id int not null,
     ISBN char(13),
-    primary key (id, ISBN),
-    FOREIGN KEY (id) REFERENCES LibraryCollection(id)
+    primary key (Id, ISBN),
+    FOREIGN KEY (Id) REFERENCES LibraryCollection(Id)
 );
 
 insert into LibraryCollectionISBN
     with countISBN as 
-    (select id,
+    (select Id,
     LENGTH(ISBN) - LENGTH(REPLACE(ISBN, ',', '')) as count,
         ISBN
     from LibraryCollection
     where ISBN <> ''
     )
 
-    select t.id,
+    select t.Id,
         j.ISBN
     from countISBN t
     join json_table(
@@ -78,3 +79,5 @@ insert into LibraryCollectionISBN
     ) j;
 
 alter table LibraryCollection drop column ISBN;
+
+CREATE INDEX BibNum ON LibraryCollection(BibNum);
